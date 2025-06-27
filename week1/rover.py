@@ -7,8 +7,6 @@ It includes three classes:
 2. Map - Represents the 2D grid of Position objects.
 3. Rover - Represents the rover with battery life and current position, capable of traversing the map.
 
-Usage:
-Place this file in the "week1" folder of your GitHub branch and push it.
 
 """
 
@@ -93,11 +91,17 @@ class Rover:
         while queue:       #traversing till the queue gets empty
             x, y, steps = queue.popleft()
 
+            
+
             if (x == target_x and y == target_y):
                 # Update rover state
                 self.battery_life -= steps
                 self.current_position = map_obj.grid[y][x]
-                return steps
+
+                if (self.battery_life>0):
+                    return steps
+                else:
+                    return -1
 
             for dx, dy in moves:
                 nx, ny = x + dx, y + dy 
@@ -130,5 +134,4 @@ if __name__ == "__main__":
     steps = rover.traverse_to(4, 1, my_map)
     
     print(f"Steps taken: {steps}")
-    print(f"Remaining battery: {rover.battery_life:.2f}%")
-    print(f"Rover current position: ({rover.current_position.x}, {rover.current_position.y})")
+
